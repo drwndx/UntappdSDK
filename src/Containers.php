@@ -8,7 +8,13 @@
 
 namespace GetMiked\UntappdSDK;
 
-
+/**
+ * Class Containers
+ * @package GetMiked\UntappdSDK
+ *
+ * https://docs.business.untappd.com/#containers
+ *
+ */
 class Containers
 {
     /**
@@ -33,7 +39,7 @@ class Containers
      * https://docs.business.untappd.com/#list-all-containers
      *
      */
-    public function getContainers($itemId){
+    public function listContainers($itemId){
         return $this->client->get("items/$itemId/containers");
     }
 

@@ -8,7 +8,13 @@
 
 namespace GetMiked\UntappdSDK;
 
-
+/**
+ * Class Analytics
+ * @package GetMiked\UntappdSDK
+ *
+ * https://docs.business.untappd.com/#analytics
+ *
+ */
 class Analytics
 {
     /**

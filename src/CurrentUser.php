@@ -8,7 +8,13 @@
 
 namespace GetMiked\UntappdSDK;
 
-
+/**
+ * Class CurrentUser
+ * @package GetMiked\UntappdSDK
+ *
+ * https://docs.business.untappd.com/#current-user
+ *
+ */
 class CurrentUser
 {
     /**

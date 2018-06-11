@@ -54,6 +54,32 @@ class UntappdClient {
     public $containers;
 
     /**
+     * @var Analytics $analytics
+     */
+    public $analytics;
+
+    /**
+     * @var CurrentUser $currentUser
+     */
+    public $currentUser;
+
+    /**
+     * @var CustomContainers $customContainers
+     */
+    public $customContainers;
+
+    /**
+     * @var CustomItems $customItems
+     */
+    public $customItems;
+
+    /**
+     * @var CustomItemTypes $customItemTypes
+     */
+    public $customItemTypes;
+
+
+    /**
      * UntappdClient constructor.
      * @param null $url
      * @param null $authKey
@@ -64,7 +90,11 @@ class UntappdClient {
         $this->setDefaultClient();
         $this->containerSizes = new ContainerSizes($this);
         $this->containers = new Containers($this);
-
+        $this->analytics = new Analytics($this);
+        $this->currentUser = new CurrentUser($this);
+        $this->customContainers = new CustomContainers($this);
+        $this->customItems = new CustomItems($this);
+        $this->customItemTypes = new CustomItemTypes($this);
 
         if ($url) {
             $this->url = $url;
@@ -74,10 +104,7 @@ class UntappdClient {
             $this->authKey = $authKey;
         }
 
-
-            $this->requestOptions = $requestOptions;
-
-
+        $this->requestOptions = $requestOptions;
     }
 
     /**
