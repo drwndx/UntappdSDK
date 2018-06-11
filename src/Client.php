@@ -6,7 +6,11 @@
  * Time: 4:48 PM
  */
 
+
+
 namespace GetMiked\UntappdSDK;
+
+require __DIR__ . '\..\vendor\autoload.php';
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Response;
@@ -25,7 +29,7 @@ class UntappdClient {
     protected $authKey;
 
     /**
-     * @var array
+     * @var string
      */
     protected $requestOptions;
 
@@ -39,6 +43,15 @@ class UntappdClient {
      */
     protected $rateLimitDetails = [];
 
+    /**
+     * @var ContainerSizes $containerSizes
+     */
+    public $containerSizes;
+
+    /**
+     * @var Containers $containers
+     */
+    public $containers;
 
     /**
      * UntappdClient constructor.
@@ -49,6 +62,8 @@ class UntappdClient {
     public function __construct($url = null,$authKey = null,$requestOptions = []){
 
         $this->setDefaultClient();
+        $this->containerSizes = new ContainerSizes($this);
+        $this->containers = new Containers($this);
 
 
         if ($url) {
@@ -59,9 +74,9 @@ class UntappdClient {
             $this->authKey = $authKey;
         }
 
-        if ($requestOptions) {
+
             $this->requestOptions = $requestOptions;
-        }
+
 
     }
 
@@ -115,25 +130,31 @@ class UntappdClient {
         return $data;
     }
 
-    public function getRequestOptions($defaultGuzzleRequestOptions = [])
+    public function getRequestOptions($defaultRequestOptions = [])
     {
-        return array_replace_recursive($this->requestOptions, $defaultGuzzleRequestOptions);
+        return array_replace_recursive($this->requestOptions, $defaultRequestOptions);
     }
 
     /**
+     * @param $endpoint
+     * @param null $options
      * @return mixed
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function get()
+    public function get($endpoint,$options = null)
     {
         $requestOptions = $this->getRequestOptions(
             [
+                'headers' => [
+                    'Authorization' => 'Basic '. $this->authKey ,
 
+                ],
             ]
         );
+        if ($options) $requestOptions['headers'] = $this->getRequestOptions($options);
 
         try{
-            $response = $this->http_client->request('GET',"",$requestOptions);
+            $response = $this->http_client->request('GET',"$this->url$endpoint",$requestOptions);
             return $this->handleResponse($response);
         } catch (\Exception $e) {
             echo ($e->getMessage() . "\n");
@@ -142,19 +163,25 @@ class UntappdClient {
     }
 
     /**
+     * @param $endpoint
+     * @param null $options
      * @return mixed
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function put()
+    public function put($endpoint,$options = null)
     {
         $requestOptions = $this->getRequestOptions(
             [
+                'headers' => [
+                    'Authorization' => 'Basic '. $this->authKey ,
 
+                ],
             ]
         );
+        if ($options) $requestOptions['headers'] = $this->getRequestOptions($options);
 
         try{
-        $response = $this->http_client->request('PUT',"",$requestOptions);
+        $response = $this->http_client->request('PUT',"$this->url$endpoint",$requestOptions);
         return $this->handleResponse($response);
         } catch (\Exception $e) {
             echo ($e->getMessage() . "\n");
@@ -162,19 +189,25 @@ class UntappdClient {
     }
 
     /**
-     * @return mixed
+     * @param $endpoint
+     * @param null $options
+     * @return array|mixed
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function post()
+    public function post($endpoint,$options = null)
     {
         $requestOptions = $this->getRequestOptions(
             [
+                'headers' => [
+                    'Authorization' => 'Basic '. $this->authKey ,
 
+                ],
             ]
         );
+        if ($options) $requestOptions['headers'] = $this->getRequestOptions($options);
 
         try{
-        $response = $this->http_client->request('POST',"",$requestOptions);
+        $response = $this->http_client->request('POST',"$this->url$endpoint",$requestOptions);
         return $this->handleResponse($response);
         } catch (\Exception $e) {
             echo ($e->getMessage() . "\n");
@@ -182,19 +215,25 @@ class UntappdClient {
     }
 
     /**
+     * @param $endpoint
+     * @param null $options
      * @return mixed
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function patch()
+    public function patch($endpoint,$options = null)
     {
         $requestOptions = $this->getRequestOptions(
             [
+                'headers' => [
+                    'Authorization' => 'Basic '. $this->authKey ,
 
+                ],
             ]
         );
+        if ($options) $requestOptions['headers'] = $this->getRequestOptions($options);
 
         try{
-        $response = $this->http_client->request('PATCH',"",$requestOptions);
+        $response = $this->http_client->request('PATCH',"$this->url$endpoint",$requestOptions);
         return $this->handleResponse($response);
         } catch (\Exception $e) {
             echo ($e->getMessage() . "\n");
@@ -204,19 +243,25 @@ class UntappdClient {
     }
 
     /**
+     * @param $endpoint
+     * @param null $options
      * @return mixed
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function delete()
+    public function delete($endpoint,$options = null)
     {
         $requestOptions = $this->getRequestOptions(
             [
+                'headers' => [
+                    'Authorization' => 'Basic '. $this->authKey ,
 
+                ],
             ]
         );
+        if ($options) $requestOptions['headers'] = $this->getRequestOptions($options);
 
         try{
-        $response = $this->http_client->request('DELETE',"",$requestOptions);
+        $response = $this->http_client->request('DELETE',"$this->url$endpoint",$requestOptions);
             return $this->handleResponse($response);
         } catch (\Exception $e) {
             echo ($e->getMessage() . "\n");
