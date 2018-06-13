@@ -10,7 +10,7 @@ require_once __DIR__ . '\src\Client.php';
 
 use GetMiked\UntappdSDK\UntappdClient;
 
-$client = new UntappdClient("https://business.untappd.com/api/v1/","a2luZ3NiZWVyd2luZUBnbWFpbC5jb206UWpzOVpzX2czcDNwUS1kcW1mNnk=");
+$client = new UntappdClient("https://business.untappd.com/api/v1/","");
 
 /**
  *
